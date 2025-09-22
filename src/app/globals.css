@@ -3,21 +3,22 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --custom: #d6b252;  /* Added custom color */
+  --back: #201f2d;  /* Added custom color */
+   --vibe: #0b1521
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+   --color-vibe: var(--vibe);
+   --color-back: var(--back);
+  --color-custom: var(--custom);  /* Added custom color variable */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+
 
 body {
   background: var(--background);
