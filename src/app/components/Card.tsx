@@ -2,37 +2,58 @@
 
 export default function ProductCard() {
   return (
-    <div className="p-6 flex items-center justify-center">
+    <div className="p-6 flex items-center justify-center bg-[var(--back)]">
       {/* Card Container */}
-      <div className="group relative w-full max-w-sm rounded-lg overflow-hidden shadow-lg">
-        
-        {/* Card Image */}
-        <img 
-          src="https://images.unsplash.com/photo-1610275515329-197e4c9354e2?auto=format&fit=crop&w=774&q=80"
-          alt="Elegant traditional attire" 
-          className="w-full h-96 object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
-          onError={(e) => { 
-            e.currentTarget.src = "https://placehold.co/400x600/111827/ffffff?text=Image+Not+Found"; 
-          }}
-        />
-        
-        {/* Overlay */}
-        <div className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-black via-black/80 to-transparent">
-          <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-1/2 group-hover:translate-y-0 transition-transform duration-500 ease-in-out">
-            
-            {/* Card Content */}
-            <h3 className="text-2xl font-bold text-white">Shairwani Elegance</h3>
-            <p className="mt-2 text-sm text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
-              Crafted for royalty. This exquisite piece combines traditional artistry with modern tailoring.
-            </p>
-            
-            {/* Button */}
-            <button className="mt-4 w-full bg-purple-500 text-white font-semibold py-3 px-4 rounded-md hover:bg-purple-700 transition-all duration-300 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 delay-300">
-              Explore Collection
-            </button>
+      <div className="group relative w-full max-w-sm rounded-xl overflow-hidden border border-[rgba(255,255,255,0.08)] bg-[var(--vibe)] text-[var(--text)] shadow-sm transition-all hover:shadow-xl hover:shadow-[rgba(198,151,73,0.25)] hover:-translate-y-1">
+        {/* Image Area (replace src later) */}
+        <div className="relative w-full" style={{ aspectRatio: "4 / 5" }}>
+          <img
+            src="https://placehold.co/800x1000/0D1B2A/FFFFFF?text=Your+Image+Here"
+            alt="Product image placeholder"
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            onError={(e) => {
+              e.currentTarget.src = "https://placehold.co/800x1000/0D1B2A/FFFFFF?text=Image+Not+Found";
+            }}
+          />
+
+          {/* Gradient Overlay for readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.6)] via-[rgba(0,0,0,0.25)] to-transparent" />
+
+          {/* Badge */}
+          <div className="absolute top-3 left-3 inline-flex items-center gap-2 rounded-full bg-[var(--custom)] text-[var(--back)] px-3 py-1 text-xs font-semibold shadow-md">
+            New Arrival
           </div>
         </div>
 
+        {/* Content */}
+        <div className="p-5">
+          <h3 className="text-lg sm:text-xl font-semibold tracking-tight">Timeless Shairwani</h3>
+          <p className="mt-2 text-sm opacity-80 leading-6">
+            Premium tailoring with refined detailing for weddings and special occasions.
+          </p>
+
+          {/* Price + CTA */}
+          <div className="mt-5 flex items-center justify-between">
+            <span className="inline-flex items-center rounded-md bg-[var(--custom)]/15 text-[var(--custom)] px-3 py-1 text-sm font-semibold">
+              PKR 38,000
+            </span>
+            <button
+              className="rounded-md bg-[var(--custom)] text-[var(--back)] px-4 py-2 text-sm font-semibold transition-colors hover:bg-[color:var(--custom)]/90"
+            >
+              View Details
+            </button>
+          </div>
+
+          {/* Secondary Actions */}
+          <div className="mt-3 flex gap-2">
+            <button className="flex-1 rounded-md border border-[var(--custom)]/40 text-[var(--text)] px-3 py-2 text-sm transition-colors hover:border-[var(--custom)] hover:bg-[var(--custom)]/10">
+              Add to Wishlist
+            </button>
+            <button className="flex-1 rounded-md border border-[var(--custom)]/40 text-[var(--text)] px-3 py-2 text-sm transition-colors hover:border-[var(--custom)] hover:bg-[var(--custom)]/10">
+              Compare
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

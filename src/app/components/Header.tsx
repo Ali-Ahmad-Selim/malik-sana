@@ -43,10 +43,10 @@ export default function Navbar() {
   }, [isOpen]);
 
   const navItems = [
-    { name: 'Home', href: '#' },
-    { name: 'Waist court', href: '#' },
-    { name: 'Casual court', href: '#' },
-    { name: 'Shairwani', href: '#' },
+    { name: 'Home', href: '/' },
+    { name: 'Waist court', href: '/components/waist' },
+    { name: 'Casual court', href: '/components/casual' },
+    { name: 'Shairwani', href: '/components/shairwani' },
   ];
 
   return (
@@ -54,7 +54,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 flex items-center space-x-2">
             <a href="#">
               <img
                 src="/favicon.png" // Replace with your logo path
@@ -62,9 +62,9 @@ export default function Navbar() {
                 width={50}
                 height={50}
                 className="rounded-full border-2 border-custom"
-                onError={(e) => { e.currentTarget.src = "https://placehold.co/50x50/1a202c/ffffff?text=LOGO" }}
               />
             </a>
+            <h1 className='text-white lg:text-2xl lg:font-bold'> Malik Asad Stitchers</h1>
           </div>
 
           {/* Desktop Navigation */}

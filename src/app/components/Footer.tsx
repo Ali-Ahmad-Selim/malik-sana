@@ -16,7 +16,7 @@ const Footer = () => {
           {/* Right Side: Social Icons */}
           <div className="flex space-x-6">
             {/* Instagram Icon */}
-            <Link href="#" aria-label="Instagram" className="text-white hover:text-opacity-80 transition-opacity duration-300">
+            <Link href="https://www.instagram.com/asadmalikstitchersofficial?utm_source=qr&igsh=M3VmaGNhNHNicXN0" aria-label="Instagram" className="text-white hover:text-opacity-80 transition-opacity duration-300">
               <FaInstagram size={28} className="text-pink-500" />
             </Link>
 
