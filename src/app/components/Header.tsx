@@ -1,5 +1,6 @@
 "use client"
 import { useState, useEffect } from 'react';
+import SendButton from './mail';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,29 +45,30 @@ export default function Navbar() {
 
   const navItems = [
     { name: 'Home', href: '/' },
-    { name: 'Waist court', href: '/components/waist' },
-    { name: 'Casual court', href: '/components/casual' },
+    { name: 'Waist coat', href: '/components/waist' },
+    { name: 'Casual coat', href: '/components/casual' },
     { name: 'Shairwani', href: '/components/shairwani' },
   ];
 
   return (
     <nav className="sticky top-0 z-50 bg-gray-900 shadow-lg py-4">
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex-shrink-0 flex items-center space-x-2">
+          <div className="flex-shrink-0 flex items-center space-x-3 ">
             <a href="#">
               <img
-                src="/favicon.png" // Replace with your logo path
+                src="/favicon.jpg" // Replace with your logo path
                 alt="Logo"
                 width={50}
                 height={50}
-                className="rounded-full border-2 border-custom"
+                className="rounded-full border-2 border-custom p-1"
               />
             </a>
-            <h1 className='text-white lg:text-2xl lg:font-bold'> Malik Asad Stitchers</h1>
+            <h1 className='text-white lg:text-2xl lg:font-bold'> Elite fitters</h1> 
           </div>
-
+                 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-4">
             {navItems.map((item) => (
@@ -103,6 +105,7 @@ export default function Navbar() {
                 )}
               </svg>
             </button>
+           
           </div>
         </div>
 

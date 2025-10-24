@@ -16,11 +16,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Malik Asad Stichers",
+  title: "Elite Fitters",
   description: "Stichers",
   icons: {
     icon: {
-      url: "/favicon.png",
+      url: "/favicon.jpg",
       sizes: "32x32",
       type: "image/png",
     }

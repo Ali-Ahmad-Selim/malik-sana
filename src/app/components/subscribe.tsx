@@ -4,17 +4,40 @@ import React from 'react'
 export default function Subscribe() {
   const [email, setEmail] = React.useState<string>("");
   const [status, setStatus] = React.useState<"idle" | "loading" | "success" | "error">("idle");
+  const [message, setMessage] = React.useState<string>("");
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setStatus("error");
+      setMessage("Please enter a valid email address.");
       return;
     }
+
     setStatus("loading");
-    setTimeout(() => {
-      setStatus("success");
-    }, 800);
+    setMessage("");
+
+    try {
+      const response = await fetch('/api/user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setStatus("success");
+        setMessage(data.message || "Thanks! You are now subscribed.");
+        setEmail(""); // Clear email field on success
+      } else {
+        setStatus("error");
+        setMessage(data.message || "Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      setStatus("error");
+      setMessage("An unexpected error occurred. Please try again later.");
+    }
   };
 
   return (
@@ -50,10 +73,10 @@ export default function Subscribe() {
         </form>
 
         {status === "error" && (
-          <p className="mt-3 text-sm text-red-400">Please enter a valid email address.</p>
+          <p className="mt-3 text-sm text-red-400">{message}</p>
         )}
         {status === "success" && (
-          <p className="mt-3 text-sm text-green-400">Thanks! You are now subscribed.</p>
+          <p className="mt-3 text-sm text-green-400">{message}</p>
         )}
       </div>
     </section>
