@@ -28,17 +28,16 @@ export default function Hero() {
   return (
     <section aria-label="Hero" className="w-full">
       <div className="relative w-full h-[60vh] md:h-[80vh] xl:h-screen">
-        <Image
-          src={imageSrc}
-          alt="Hero image"
-          fill
-          priority
-          className="object-cover object-center w-full"
-          sizes="(max-width: 768px) 100vw,
-                 (max-width: 1200px) 100vw,
-                 100vw"
-          quality={100}
-        />
+      <Image
+  src={imageSrc}
+  alt="Hero image"
+  fill
+  priority
+  unoptimized // 👈 add this line just to test
+  className="object-cover object-center w-full"
+  sizes="100vw"
+  quality={100}
+/>
       </div>
     </section>
   );

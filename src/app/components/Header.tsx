@@ -1,7 +1,6 @@
 "use client"
 import { useState, useEffect } from 'react';
-import SendButton from './mail';
-
+import Image from "next/image";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -58,13 +57,14 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center space-x-3 ">
             <a href="#">
-              <img
-                src="/favicon.jpg" // Replace with your logo path
-                alt="Logo"
-                width={50}
-                height={50}
-                className="rounded-full border-2 border-custom p-1"
-              />
+             <Image
+  src="/favicon.jpg" // Replace with your logo path
+  alt="Logo"
+  width={50}
+  height={50}
+  className="rounded-full border-2 border-custom p-1"
+  priority // optional — ensures logo loads fast
+/>
             </a>
             <h1 className='text-white lg:text-2xl lg:font-bold'> Elite fitters</h1> 
           </div>

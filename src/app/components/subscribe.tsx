@@ -1,9 +1,11 @@
 "use client";
-import React from 'react'
+import React from "react";
 
 export default function Subscribe() {
   const [email, setEmail] = React.useState<string>("");
-  const [status, setStatus] = React.useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = React.useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
   const [message, setMessage] = React.useState<string>("");
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -18,9 +20,9 @@ export default function Subscribe() {
     setMessage("");
 
     try {
-      const response = await fetch('/api/user', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/user", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
 
@@ -29,19 +31,23 @@ export default function Subscribe() {
       if (response.ok) {
         setStatus("success");
         setMessage(data.message || "Thanks! You are now subscribed.");
-        setEmail(""); // Clear email field on success
+        setEmail("");
       } else {
         setStatus("error");
         setMessage(data.message || "Something went wrong. Please try again.");
       }
     } catch (error) {
+      console.error(error);
       setStatus("error");
       setMessage("An unexpected error occurred. Please try again later.");
     }
   };
 
   return (
-    <section aria-label="Subscribe" className="w-full py-12 sm:py-16 md:py-20 bg-[var(--back)] text-[var(--text)]">
+    <section
+      aria-label="Subscribe"
+      className="w-full py-12 sm:py-16 md:py-20 bg-[var(--back)] text-[var(--text)]"
+    >
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-6 sm:mb-8">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight">
@@ -52,7 +58,10 @@ export default function Subscribe() {
           </p>
         </div>
 
-        <form onSubmit={onSubmit} className="flex flex-col sm:flex-row items-stretch gap-3">
+        <form
+          onSubmit={onSubmit}
+          className="flex flex-col sm:flex-row items-stretch gap-3"
+        >
           <input
             type="email"
             name="email"
@@ -68,7 +77,11 @@ export default function Subscribe() {
             disabled={status === "loading"}
             className="rounded-md bg-[var(--custom)] text-[var(--back)] px-6 py-3 font-semibold transition-colors hover:bg-[color:var(--custom)]/90 disabled:opacity-70 disabled:cursor-not-allowed"
           >
-            {status === "loading" ? "Subscribing..." : status === "success" ? "Subscribed" : "Subscribe"}
+            {status === "loading"
+              ? "Subscribing..."
+              : status === "success"
+              ? "Subscribed"
+              : "Subscribe"}
           </button>
         </form>
 
@@ -80,5 +93,5 @@ export default function Subscribe() {
         )}
       </div>
     </section>
-  )
+  );
 }

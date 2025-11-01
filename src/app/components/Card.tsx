@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 export default function ProductCard() {
   return (
     <div className="p-6 flex items-center justify-center bg-[var(--back)]">
@@ -7,14 +7,12 @@ export default function ProductCard() {
       <div className="group relative w-full max-w-sm rounded-xl overflow-hidden border border-[rgba(255,255,255,0.08)] bg-[var(--vibe)] text-[var(--text)] shadow-sm transition-all hover:shadow-xl hover:shadow-[rgba(198,151,73,0.25)] hover:-translate-y-1">
         {/* Image Area (replace src later) */}
         <div className="relative w-full" style={{ aspectRatio: "4 / 5" }}>
-          <img
-            src="https://placehold.co/800x1000/0D1B2A/FFFFFF?text=Your+Image+Here"
-            alt="Product image placeholder"
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-            onError={(e) => {
-              e.currentTarget.src = "https://placehold.co/800x1000/0D1B2A/FFFFFF?text=Image+Not+Found";
-            }}
-          />
+         <Image
+  src="/hero.png"
+  alt="Product image placeholder"
+  fill
+  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+/>
 
           {/* Gradient Overlay for readability */}
           <div className="absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.6)] via-[rgba(0,0,0,0.25)] to-transparent" />

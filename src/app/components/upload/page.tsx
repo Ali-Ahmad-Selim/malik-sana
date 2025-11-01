@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import React, { useRef, useState } from "react";
 
 type AllowedOption = "home" | "waist coat" | "casual coat" | "shaiwani";
@@ -14,6 +14,10 @@ type CreatedPosting = {
   option: AllowedOption;
   createdAt: string;
 };
+
+type ApiResponse =
+  | { posting: CreatedPosting; error?: never }
+  | { error: string; posting?: never };
 
 export default function PostingUploader() {
   const [file, setFile] = useState<File | null>(null);
@@ -35,11 +39,10 @@ export default function PostingUploader() {
     setFile(f);
     setMsg(null);
     setCreated(null);
-    if (f) setPreview(URL.createObjectURL(f));
-    else setPreview(null);
+    setPreview(f ? URL.createObjectURL(f) : null);
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setMsg(null);
     setCreated(null);
@@ -56,17 +59,16 @@ export default function PostingUploader() {
       fd.append("alt", alt);
       fd.append("option", option);
 
-      // 🔁 Correct API path that matches your server route
       const res = await fetch("/api/photos", {
         method: "POST",
-        body: fd, // don’t set Content-Type manually
+        body: fd,
       });
 
-      const json = await res.json();
-      if (!res.ok) throw new Error(json?.error || "Upload failed");
+      const json: ApiResponse = await res.json();
+      if (!res.ok || "error" in json) throw new Error(json.error || "Upload failed");
 
       setMsg({ ok: true, text: "Created successfully!" });
-      setCreated(json.posting as CreatedPosting);
+      setCreated(json.posting);
 
       // reset form
       setTitle("");
@@ -76,8 +78,10 @@ export default function PostingUploader() {
       setFile(null);
       setPreview(null);
       if (fileInputRef.current) fileInputRef.current.value = "";
-    } catch (err: any) {
-      setMsg({ ok: false, text: err?.message || "Something went wrong." });
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : "Something went wrong.";
+      setMsg({ ok: false, text: message });
     } finally {
       setSubmitting(false);
     }
@@ -90,14 +94,18 @@ export default function PostingUploader() {
     setDeleting(true);
     setMsg(null);
     try {
-      const res = await fetch(`/api/photos?id=${encodeURIComponent(created.id)}`, { method: "DELETE" });
-      const j = await res.json();
-      if (!res.ok) throw new Error(j?.error || "Delete failed");
+      const res = await fetch(`/api/photos?id=${encodeURIComponent(created.id)}`, {
+        method: "DELETE",
+      });
+      const json: ApiResponse = await res.json();
+      if (!res.ok || "error" in json) throw new Error(json.error || "Delete failed");
 
       setMsg({ ok: true, text: "Deleted successfully." });
       setCreated(null);
-    } catch (e: any) {
-      setMsg({ ok: false, text: e?.message || "Delete failed." });
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : "Delete failed.";
+      setMsg({ ok: false, text: message });
     } finally {
       setDeleting(false);
     }
@@ -168,17 +176,18 @@ export default function PostingUploader() {
               placeItems: "center",
             }}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={preview}
-              alt="preview"
-              style={{
-                maxWidth: "100%",
-                height: "auto",
-                borderRadius: 8,
-                display: "block",
-              }}
-            />
+            <Image
+  src={preview}
+  alt="preview"
+  width={800}
+  height={600}
+  style={{
+    maxWidth: "100%",
+    height: "auto",
+    borderRadius: 8,
+    display: "block",
+  }}
+/>
           </div>
         )}
 
@@ -282,8 +291,12 @@ export default function PostingUploader() {
               cursor: submitting ? "not-allowed" : "pointer",
               transition: "transform 120ms ease",
             }}
-            onMouseDown={(e) => ((e.currentTarget as HTMLButtonElement).style.transform = "scale(0.99)")}
-            onMouseUp={(e) => ((e.currentTarget as HTMLButtonElement).style.transform = "scale(1)")}
+            onMouseDown={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.transform = "scale(0.99)";
+            }}
+            onMouseUp={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.transform = "scale(1)";
+            }}
           >
             {submitting ? "Uploading..." : "Create Posting"}
           </button>

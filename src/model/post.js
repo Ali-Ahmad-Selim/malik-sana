@@ -1,5 +1,5 @@
 // model/posting.ts
-import mongoose, { Schema, models, model } from "mongoose";
+import { Schema, models, model } from "mongoose";
 
 const PostingSchema = new Schema(
   {
